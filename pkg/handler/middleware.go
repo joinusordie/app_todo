@@ -6,12 +6,38 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
+	cors "github.com/rs/cors/wrapper/gin"
 )
 
 const (
 	authorizationHeader = "Authorization"
 	userCtx = "userId"
 )
+
+func (h *Handler) corsSetting() gin.HandlerFunc {
+	c := cors.New(cors.Options{
+		AllowedMethods: []string{
+			http.MethodGet,
+			http.MethodPost,
+			http.MethodPut,
+			http.MethodDelete,
+		},
+		AllowedOrigins: []string{
+			"http://localhost:63342",
+		},
+		AllowCredentials: true,
+		AllowedHeaders: []string{
+			authorizationHeader,
+		},
+		OptionsPassthrough: false,
+		ExposedHeaders: []string{
+			authorizationHeader,
+		},
+		Debug: true,
+	})
+
+	return c
+}
 
 func (h *Handler) userIdentity(c *gin.Context) {
 	header := c.GetHeader(authorizationHeader)
