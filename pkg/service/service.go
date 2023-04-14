@@ -27,16 +27,22 @@ type TodoItem interface {
 	Update(userId, itemId int, input todo.UpdateItemInput) error
 }
 
+type Account interface {
+	DeleteUser(userId int) error
+}
+
 type Service struct {
 	Authorization
 	TodoList
 	TodoItem
+	Account
 }
 
 func NewService(repos *repository.Repository) *Service {
 	return &Service{
 		Authorization: NewAuthService(repos.Authorization),
-		TodoList: NewTodoListService(repos.TodoList),
-		TodoItem: NewTodoItemService(repos.TodoItem, repos.TodoList),
+		TodoList:      NewTodoListService(repos.TodoList),
+		TodoItem:      NewTodoItemService(repos.TodoItem, repos.TodoList),
+		Account:       NewAccountService(repos.Account),
 	}
 }

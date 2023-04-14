@@ -11,7 +11,7 @@ import (
 
 const (
 	authorizationHeader = "Authorization"
-	userCtx = "userId"
+	userCtx             = "userId"
 )
 
 func (h *Handler) corsSetting() gin.HandlerFunc {
@@ -24,6 +24,7 @@ func (h *Handler) corsSetting() gin.HandlerFunc {
 		},
 		AllowedOrigins: []string{
 			"http://localhost:63342",
+			"http://localhost:3000",
 		},
 		AllowCredentials: true,
 		AllowedHeaders: []string{
@@ -61,7 +62,7 @@ func (h *Handler) userIdentity(c *gin.Context) {
 	c.Set(userCtx, userId)
 }
 
-func getUserId(c *gin.Context) (int, error){
+func getUserId(c *gin.Context) (int, error) {
 	id, ok := c.Get(userCtx)
 	if !ok {
 		newErrorResponse(c, http.StatusInternalServerError, "user id not found")

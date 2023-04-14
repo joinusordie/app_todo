@@ -15,10 +15,10 @@ func (h *Handler) createItem(c *gin.Context) {
 	}
 
 	listId, err := strconv.Atoi(c.Param("id"))
-	if err != nil {	
-			newErrorResponse(c, http.StatusBadRequest, "invalid item id param")
-			return
-		
+	if err != nil {
+		newErrorResponse(c, http.StatusBadRequest, "invalid item id param")
+		return
+
 	}
 
 	var input todo.TodoItem
@@ -40,7 +40,7 @@ func (h *Handler) createItem(c *gin.Context) {
 
 func (h *Handler) getAllItems(c *gin.Context) {
 	userId, err := getUserId(c)
-	if err != nil{
+	if err != nil {
 		return
 	}
 
@@ -96,7 +96,7 @@ func (h *Handler) updateItem(c *gin.Context) {
 		newErrorResponse(c, http.StatusBadRequest, err.Error())
 		return
 	}
-	
+
 	if err := h.services.TodoItem.Update(userId, id, input); err != nil {
 		newErrorResponse(c, http.StatusInternalServerError, err.Error())
 		return

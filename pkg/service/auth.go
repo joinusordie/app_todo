@@ -12,9 +12,9 @@ import (
 )
 
 const (
-	salt = "dsagfwdhg235235tdf"
+	salt       = "dsagfwdhg235235tdf"
 	signingKey = "dqwwd#FWFWEGVBr#fefsa#wfeFWef"
-	tokenTTL = 12 * time.Hour
+	tokenTTL   = 12 * time.Hour
 )
 
 type tokenClaims struct {
@@ -27,9 +27,9 @@ type AuthService struct {
 }
 
 func NewAuthService(repo repository.Authorization) *AuthService {
-	return &AuthService{repo :repo}
+	return &AuthService{repo: repo}
 }
- 
+
 func (s *AuthService) CreateUser(user todo.User) (int, error) {
 	user.Password = generatePasswordHash(user.Password)
 
@@ -45,7 +45,7 @@ func (s *AuthService) GenerateToken(username, password string) (string, error) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, &tokenClaims{
 		jwt.StandardClaims{
 			ExpiresAt: time.Now().Add(tokenTTL).Unix(),
-			IssuedAt: time.Now().Unix(),
+			IssuedAt:  time.Now().Unix(),
 		},
 		user.Id,
 	})
@@ -54,7 +54,7 @@ func (s *AuthService) GenerateToken(username, password string) (string, error) {
 }
 
 func (s *AuthService) ParseToken(accessToken string) (int, error) {
-	token, err := jwt.ParseWithClaims(accessToken, &tokenClaims{}, func(token *jwt.Token) (interface{}, error){
+	token, err := jwt.ParseWithClaims(accessToken, &tokenClaims{}, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, errors.New("invalid signing method")
 		}
