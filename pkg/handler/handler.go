@@ -18,6 +18,7 @@ func (h *Handler) InitRoutes() *gin.Engine {
 
 	router.Use(h.corsSetting())
 	auth := router.Group("/auth")
+
 	{
 		auth.POST("/sign-up", h.signUp)
 		auth.POST("/sign-in", h.signIn)
@@ -28,6 +29,7 @@ func (h *Handler) InitRoutes() *gin.Engine {
 		account := api.Group("/account")
 		{
 			account.DELETE("/", h.deleteUser)
+			account.GET("/", h.getUser)
 		}
 
 		lists := api.Group("/lists")

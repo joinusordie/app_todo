@@ -28,6 +28,7 @@ type TodoItem interface {
 
 type Account interface {
 	DeleteUser(userId int) error
+	GetUser(userId int) (todo.User, error)
 }
 
 type Repository struct {

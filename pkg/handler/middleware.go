@@ -23,8 +23,7 @@ func (h *Handler) corsSetting() gin.HandlerFunc {
 			http.MethodDelete,
 		},
 		AllowedOrigins: []string{
-			"http://localhost:63342",
-			"http://localhost:3000",
+			"*",
 		},
 		AllowCredentials: true,
 		AllowedHeaders: []string{

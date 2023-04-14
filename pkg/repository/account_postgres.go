@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/jmoiron/sqlx"
+	todo "github.com/joinusordie/app_todo"
 )
 
 type AccountPostgres struct {
@@ -45,4 +46,12 @@ func (r *AccountPostgres) DeleteUser(userId int) error {
 	}
 
 	return tx.Commit()
+}
+
+func (r *AccountPostgres) GetUser(userId int) (todo.User, error) {
+	var user todo.User
+	query := fmt.Sprintf("SELECT username, name FROM %s WHERE id=$1", userTable)
+	err := r.db.Get(&user, query, userId)
+
+	return user, err
 }
