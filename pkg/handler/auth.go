@@ -50,3 +50,17 @@ func (h *Handler) signIn(c *gin.Context) {
 		"token": token,
 	})
 }
+
+func (h *Handler) checkUsername(c *gin.Context) {
+
+	username := c.Param("username")
+
+	check, err := h.services.Authorization.CheckUsername(username)
+	if err != nil {
+		newErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, check)
+
+}

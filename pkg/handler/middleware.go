@@ -28,6 +28,7 @@ func (h *Handler) corsSetting() gin.HandlerFunc {
 		AllowCredentials: true,
 		AllowedHeaders: []string{
 			authorizationHeader,
+			"ngrok-skip-browser-warning",
 		},
 		OptionsPassthrough: false,
 		ExposedHeaders: []string{

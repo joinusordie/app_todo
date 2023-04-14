@@ -18,10 +18,17 @@ func (h *Handler) InitRoutes() *gin.Engine {
 
 	router.Use(h.corsSetting())
 	auth := router.Group("/auth")
-
 	{
-		auth.POST("/sign-up", h.signUp)
-		auth.POST("/sign-in", h.signIn)
+		signUp := auth.Group("/sign-up")
+		{
+			signUp.POST("/", h.signUp)
+			signUp.GET("/:username", h.checkUsername)
+		}
+
+		signIn := auth.Group("/sign-in")
+		{
+			signIn.POST("/", h.signIn)
+		}
 	}
 
 	api := router.Group("/api", h.userIdentity)
@@ -46,13 +53,13 @@ func (h *Handler) InitRoutes() *gin.Engine {
 				items.GET("/", h.getAllItems)
 			}
 		}
-	}
 
-	items := api.Group("items")
-	{
-		items.GET("/:id", h.getItemById)
-		items.PUT("/:id", h.updateItem)
-		items.DELETE("/:id", h.deleteItem)
+		items := api.Group("items")
+		{
+			items.GET("/:id", h.getItemById)
+			items.PUT("/:id", h.updateItem)
+			items.DELETE("/:id", h.deleteItem)
+		}
 	}
 
 	return router

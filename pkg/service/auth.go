@@ -79,3 +79,7 @@ func generatePasswordHash(password string) string {
 
 	return fmt.Sprintf("%x", hash.Sum([]byte(salt)))
 }
+
+func (s *AuthService) CheckUsername(username string) (bool, error) {
+	return s.repo.CheckUsername(username)
+}
