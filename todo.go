@@ -3,22 +3,21 @@ package todo
 import "errors"
 
 type TodoList struct {
-	Id          int    `json:"id" db:"id"`
-	Title       string `json:"title" db:"title" binding:"required"`
-	Description string `json:"description" db:"description"`
+	Id    int    `json:"id" db:"id"`
+	Title string `json:"title" db:"title" binding:"required"`
+	Done  bool   `json:"done" db:"done"`
 }
 
-type UsersLust struct {
+type UsersList struct {
 	Id     int
 	UserId int
 	ListId int
 }
 
 type TodoItem struct {
-	Id          int    `json:"id" db:"id"`
-	Title       string `json:"title" db:"title" binding:"required"`
-	Description string `json:"description" db:"description"`
-	Done        bool   `json:"done" db:"done"`
+	Id    int    `json:"id" db:"id"`
+	Title string `json:"title" db:"title" binding:"required"`
+	Done  bool   `json:"done" db:"done"`
 }
 
 type ListItem struct {
@@ -28,25 +27,24 @@ type ListItem struct {
 }
 
 type UpdateListInput struct {
-	Title       *string `json:"title"`
-	Description *string `json:"description"`
+	Title *string `json:"title"`
+	Done  *bool   `json:"done"`
 }
 
 type UpdateItemInput struct {
-	Title       *string `json:"title"`
-	Description *string `json:"description"`
-	Done        *bool   `json:"done"`
+	Title *string `json:"title"`
+	Done  *bool   `json:"done"`
 }
 
 func (i UpdateItemInput) Validate() error {
-	if i.Title == nil && i.Description == nil && i.Done == nil {
+	if i.Title == nil && i.Done == nil {
 		return errors.New("update structure has no values")
 	}
 	return nil
 }
 
 func (i UpdateListInput) Validate() error {
-	if i.Title == nil && i.Description == nil {
+	if i.Title == nil && i.Done == nil {
 		return errors.New("update structure has no values")
 	}
 	return nil

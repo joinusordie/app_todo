@@ -35,6 +35,6 @@ func (h *Handler) getUser(c *gin.Context) {
 
 	c.JSON(http.StatusOK, map[string]interface{}{
 		"username": user.Username,
-		"user":     user.Name,
+		"name":     user.Name,
 	})
 }

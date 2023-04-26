@@ -20,3 +20,6 @@ make build && make run
 ```
 make migrate
 ```
+
+## Демонстрация работы
+https://youtu.be/vVzGgmpGGiY

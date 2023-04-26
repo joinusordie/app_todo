@@ -29,7 +29,7 @@ func (h *Handler) InitRoutes() *gin.Engine {
 		signUp := auth.Group("/sign-up")
 		{
 			signUp.POST("/", h.signUp)
-			signUp.GET("/:username", h.checkUsername)
+			signUp.GET("", h.checkUsername)
 		}
 
 		signIn := auth.Group("/sign-in")
@@ -61,7 +61,7 @@ func (h *Handler) InitRoutes() *gin.Engine {
 			}
 		}
 
-		items := api.Group("items")
+		items := api.Group("/items")
 		{
 			items.GET("/:id", h.getItemById)
 			items.PUT("/:id", h.updateItem)

@@ -77,7 +77,7 @@ func (h *Handler) signIn(c *gin.Context) {
 
 func (h *Handler) checkUsername(c *gin.Context) {
 
-	username := c.Param("username")
+	username := c.Query("username")
 
 	check, err := h.services.Authorization.CheckUsername(username)
 	if err != nil {
