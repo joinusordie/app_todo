@@ -23,3 +23,6 @@ make migrate
 
 ## Демонстрация работы
 https://youtu.be/vVzGgmpGGiY
+
+### Frontend-часть проекта можно посмотреть по ссылке:
+https://github.com/ArtKolyach/todo-react
